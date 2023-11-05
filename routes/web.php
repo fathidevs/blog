@@ -13,6 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/docs', function () {
+    return view('docs');
 });
+
+Route::get('/', function () {
+    return view('posts');
+});
+
+Route::get('posts/{post}', function ($slug) {
+
+    $path = __DIR__. "/../resources/posts/{$slug}.html";
+
+    if(!file_exists($path)){
+        dd("file does not exists");
+    }
+
+    $post = cache()->remember("posts.{$slug}", 5, function () use($path) {
+        
+        return file_get_contents($path);
+
+    });
+
+
+    return view('post', ['post'=>$post]);
+
+})->where('post', '[A-z_\-]+');

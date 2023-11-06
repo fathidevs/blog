@@ -7,7 +7,13 @@
     <title>Posts</title>
 </head>
 <body>
+    <?php foreach($posts as $post): ?>
     <article>
+        <?= $post?>
+    </article>
+    <?php endforeach; ?>
+
+    <!-- <article>
     <h1><a href="/posts/my_first_post">My first post</a></h1>
 
     <p>
@@ -29,6 +35,6 @@
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore beatae impedit laudantium dolor saepe corrupti, est ullam delectus sint ducimus tenetur facilis porro omnis hic in. Sit, nisi et.
     </p>
-    </article>
+    </article> -->
 </body>
 </html>

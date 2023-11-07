@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,6 @@ Route::get('/docs', function () {
 
 Route::get('/', function () { 
 
-    $posts = Post::alll();
-
-    // ddd($posts[0]->Time);
     
     return view('posts', ['posts' => Post::alll()]);
 });

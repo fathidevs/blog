@@ -28,16 +28,18 @@ class Post extends Model
     }
     
     public static function alll(){
+    return cache()->rememberForever('posts.all', function () {
+        return collect(File::files(resource_path("posts")))
+        ->map(fn($file)=> YamlFrontMatter::parseFile($file))
+        ->map( fn($doc) => new Post(
+                $doc->title,
+                $doc->excerpt,
+                $doc->date,
+                $doc->body(),
+                $doc->slug,
+            ))->sortByDesc('date');
+    });
     
-    return collect(File::files(resource_path("posts")))
-    ->map(fn($file)=> YamlFrontMatter::parseFile($file))
-    ->map( fn($doc) => new Post(
-            $doc->title,
-            $doc->excerpt,
-            $doc->date,
-            $doc->body(),
-            $doc->slug,
-        ));
         
     }
 

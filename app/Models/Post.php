@@ -44,16 +44,13 @@ class Post extends Model
     }
 
     public static function find($slug) {
-        // $path = resource_path("posts/{$slug}.html");
+        
+        $posts = static::alll()->firstWhere('slug', $slug);
 
-        // if(!file_exists($path)){
-        //     throw new ModelNotFoundException();
-        // }
-
-        // return cache()->remember("/post.{$slug}", 3, fn() => file_get_contents($path));
-        $posts = static::alll();
-
-        return $posts->firstWhere('slug', $slug);
+        if (! $posts){
+            throw new ModelNotFoundException();
+        }
+        return $posts;
     }
 
 }
